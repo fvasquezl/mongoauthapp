@@ -25,3 +25,12 @@ export const DELETE = async (request) => {
     await Topic.findByIdAndDelete(id);
     return NextResponse.json({ message: "Topic Deleted" }, { status: 200 });
 }
+
+
+export async function PATCH(request) {
+    const { id } = params
+    const { newTitle: title, newDescription: description } = await request.json()
+    await connectMongoDB()
+    await Topic.findByIdAndUpdate(id, { title, description })
+    return NextResponse.json({ message: "Topic Updated" }, { status: 200 })
+}
